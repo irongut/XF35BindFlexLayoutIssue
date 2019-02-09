@@ -2,13 +2,56 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XF35BindFlexLayoutIssue"
-             x:Class="XF35BindFlexLayoutIssue.MainPage">
+             x:Class="XF35BindFlexLayoutIssue.MainPage"
+             x:DataType="local:ViewModel"
+             Title="List with Bindable FlexLayout Issue">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+    <ContentPage.Resources>
+        <ResourceDictionary>
 
+            <DataTemplate x:Key="tagsTemplate" x:DataType="x:String">
+                <ContentView BackgroundColor="Purple" Padding="5, 2" Margin="0, 5, 5, 0">
+                    <Label Text="{Binding }" LineBreakMode="NoWrap" TextColor="White"/>
+                </ContentView>
+            </DataTemplate>
+
+            <DataTemplate x:Key="itemTemplate" x:DataType="local:ListItem">
+                <ViewCell>
+                    <ContentView Padding="10, 5">
+                        <Frame Padding="10" BackgroundColor="Transparent" BorderColor="Purple">
+                            <StackLayout Orientation="Vertical">
+                                
+                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                       Text="{Binding Title, Mode=OneWay}" 
+                                       LineBreakMode="WordWrap" 
+                                       FontAttributes="Bold"/>
+
+                                <Label Grid.Row="1" Grid.Column="1" 
+                                       Text="{Binding MainText, Mode=OneWay}" 
+                                       LineBreakMode="TailTruncation" 
+                                       MaxLines="4"/>
+
+                                <FlexLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                            BindableLayout.ItemTemplate="{StaticResource tagsTemplate}" 
+                                            BindableLayout.ItemsSource="{Binding Tags, Mode=OneWay}" 
+                                            Direction="Row" 
+                                            Wrap="Wrap" 
+                                            JustifyContent="Start" 
+                                            AlignContent="SpaceEvenly" 
+                                            AlignItems="Start"/>
+
+                            </StackLayout>
+                        </Frame>
+                    </ContentView>
+                </ViewCell>
+            </DataTemplate>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ListView ItemTemplate="{StaticResource itemTemplate}" 
+              ItemsSource="{Binding ItemsList, Mode=OneWay}" 
+              SeparatorVisibility="None" 
+              HasUnevenRows="True"/>
+    
 </ContentPage>
