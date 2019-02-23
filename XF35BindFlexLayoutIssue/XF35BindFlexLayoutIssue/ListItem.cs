@@ -20,7 +20,7 @@ namespace XF35BindFlexLayoutIssue
         private void BuildTags()
         {
             Random rnd = new Random();
-            for (int i = 0; i < rnd.Next(3, 6); i++)
+            for (int i = 0; i < rnd.Next(1, 6); i++)
             {
                 Tags.Add(String.Format("Tag #{0}", i));
             }
