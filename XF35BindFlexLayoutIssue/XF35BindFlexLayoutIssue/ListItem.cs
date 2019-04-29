@@ -24,6 +24,7 @@ namespace XF35BindFlexLayoutIssue
             {
                 Tags.Add(String.Format("Tag #{0}", i));
             }
+            Tags.Add(String.Format("Extra Tag"));
         }
     }
 }
